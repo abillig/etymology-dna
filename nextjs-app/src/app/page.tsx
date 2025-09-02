@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { WordOrigin, EtymologyResponse, OriginPercentage } from './types';
-import { OrganicBackground } from './components/OrganicBackground/OrganicBackground';
-import { SearchInput } from './components/SearchInput/SearchInput';
-import { SentenceDisplay } from './components/SentenceDisplay/SentenceDisplay';
-import { DNAReport } from './components/DNAReport/DNAReport';
-import './App.css';
+'use client';
 
-function App() {
+import React, { useState } from 'react';
+import { WordOrigin, EtymologyResponse, OriginPercentage } from '../types';
+import { OrganicBackground } from '../components/OrganicBackground/OrganicBackground';
+import { SearchInput } from '../components/SearchInput/SearchInput';
+import { SentenceDisplay } from '../components/SentenceDisplay/SentenceDisplay';
+import { DNAReport } from '../components/DNAReport/DNAReport';
+import './globals.css';
+
+export default function Home() {
   const [sentence, setSentence] = useState('');
   const [etymologyData, setEtymologyData] = useState<WordOrigin[]>([]);
   const [percentages, setPercentages] = useState<OriginPercentage[]>([]);
@@ -19,7 +21,7 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/analyze', {
+      const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +30,8 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to analyze sentence');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to analyze sentence');
       }
 
       const data: EtymologyResponse = await response.json();
@@ -38,7 +41,7 @@ function App() {
       setSentence('');
     } catch (error) {
       console.error('Error analyzing sentence:', error);
-      alert('Error analyzing sentence. Make sure the backend is running.');
+      alert(error instanceof Error ? error.message : 'Error analyzing sentence. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -90,7 +93,7 @@ function App() {
 
       {hoveredWord && (
         <div className="tooltip">
-          <h4>"{hoveredWord.word}"</h4>
+          <h4>&quot;{hoveredWord.word}&quot;</h4>
           <p><strong>Origin:</strong> {hoveredWord.origin}</p>
           <p><strong>Etymology:</strong> {hoveredWord.details}</p>
           <p><strong>Confidence:</strong> {(hoveredWord.confidence * 100).toFixed(0)}%</p>
@@ -99,5 +102,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -128,3 +128,32 @@ logs
 # Build directories
 dist/
 build/
+.next/
+out/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# API Keys and Secrets - CRITICAL: NEVER COMMIT
+*.key
+*.pem
+*.p12
+*.p8
+*secret*
+*password*
+*token*
+*api*key*
+ANTHROPIC_API_KEY*
+*claude*
+*openai*
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# Editor configs that might contain secrets
+.env.example

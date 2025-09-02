@@ -59,7 +59,7 @@ export class LeafSystem {
       const leafSize = 20;
       
       // Check collision with settled leaves - only care about leaves above this one
-      for (let settledLeaf of this.settledLeaves) {
+      for (const settledLeaf of this.settledLeaves) {
         const settledRect = settledLeaf.getBoundingClientRect();
         
         // Check if this rising leaf is hitting a settled leaf from below
