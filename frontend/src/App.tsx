@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { WordOrigin, EtymologyResponse, OriginPercentage } from './types';
+import { OrganicBackground } from './components/OrganicBackground/OrganicBackground';
+import { SearchInput } from './components/SearchInput/SearchInput';
+import { SentenceDisplay } from './components/SentenceDisplay/SentenceDisplay';
+import { DNAReport } from './components/DNAReport/DNAReport';
 import './App.css';
 
 function App() {
@@ -40,70 +44,10 @@ function App() {
     }
   };
 
-  const renderDNAReport = () => {
-    return (
-      <div className="dna-report">
-        <div className="report-content">
-          <div className="ancestry-bars">
-            <div className="chromosome-visualization">
-              {/* DNA-style horizontal bars */}
-              {percentages.map((origin, index) => (
-                <div key={index} className="chromosome-bar">
-                  <div 
-                    className="ancestry-segment"
-                    style={{ 
-                      width: `${origin.percentage}%`,
-                      backgroundColor: origin.color 
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="ancestry-breakdown">
-            <h3>Linguistic Composition</h3>
-            <div className="breakdown-list">
-              {percentages.map((origin, index) => (
-                <div key={index} className="breakdown-item">
-                  <div className="breakdown-info">
-                    <div className="origin-dot" style={{ backgroundColor: origin.color }}></div>
-                    <span className="origin-name">{origin.origin}</span>
-                  </div>
-                  <span className="origin-percentage">{origin.percentage.toFixed(1)}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderSentenceWithColors = () => {
-    return (
-      <div className="sentence-display">
-        <h3>Color-Coded Analysis</h3>
-        <div className="colored-sentence">
-          {etymologyData.map((word, index) => (
-            <span
-              key={index}
-              className="colored-word"
-              style={{ color: word.color }}
-              onMouseEnter={() => setHoveredWord(word)}
-              onMouseLeave={() => setHoveredWord(null)}
-            >
-              {word.word}
-              {index < etymologyData.length - 1 && ' '}
-            </span>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className={`app ${hasSearched ? 'searched' : 'initial'}`}>
+      <OrganicBackground />
+      
       {!hasSearched ? (
         <div className="initial-state">
           <header className="hero-header">
@@ -111,42 +55,37 @@ function App() {
             <p>Discover the linguistic ancestry of your sentences</p>
           </header>
           
-          <div className="hero-search">
-            <input
-              type="text"
-              value={sentence}
-              onChange={(e) => setSentence(e.target.value)}
-              placeholder="Enter an English sentence to analyze its linguistic DNA..."
-            />
-            <button onClick={analyzeSentence} disabled={loading}>
-              {loading ? 'Analyzing Linguistic DNA...' : 'Analyze Sentence'}
-            </button>
-          </div>
+          <SearchInput
+            value={sentence}
+            onChange={setSentence}
+            onSubmit={analyzeSentence}
+            loading={loading}
+            isCompact={false}
+          />
         </div>
       ) : (
         <div className="results-state">
           <header className="compact-header">
             <div className="header-content">
               <h2 className="logo">Etymology DNA</h2>
-              <div className="compact-search">
-                <input
-                  type="text"
-                  value={sentence}
-                  onChange={(e) => setSentence(e.target.value)}
-                  placeholder="Enter a sentence to analyze..."
-                />
-                <button onClick={analyzeSentence} disabled={loading}>
-                  {loading ? 'Analyzing...' : 'Analyze'}
-                </button>
-              </div>
+              <SearchInput
+                value={sentence}
+                onChange={setSentence}
+                onSubmit={analyzeSentence}
+                loading={loading}
+                isCompact={true}
+              />
             </div>
           </header>
 
           <main className="results-content">
             {etymologyData.length > 0 && (
               <>
-                {renderSentenceWithColors()}
-                {renderDNAReport()}
+                <SentenceDisplay
+                  words={etymologyData}
+                  onWordHover={setHoveredWord}
+                />
+                <DNAReport percentages={percentages} />
               </>
             )}
           </main>
