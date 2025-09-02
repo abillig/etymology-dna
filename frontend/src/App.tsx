@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className={`app ${hasSearched ? 'searched' : 'initial'}`}>
-      <OrganicBackground />
+      <OrganicBackground glassmorphism={hasSearched} />
       
       {!hasSearched ? (
         <div className="initial-state">
@@ -65,18 +65,14 @@ function App() {
         </div>
       ) : (
         <div className="results-state">
-          <header className="compact-header">
-            <div className="header-content">
-              <h2 className="logo">Etymology DNA</h2>
-              <SearchInput
-                value={sentence}
-                onChange={setSentence}
-                onSubmit={analyzeSentence}
-                loading={loading}
-                isCompact={true}
-              />
-            </div>
-          </header>
+          <div className="back-to-search">
+            <button 
+              onClick={() => setHasSearched(false)}
+              className="back-button"
+            >
+              ← New Analysis
+            </button>
+          </div>
 
           <main className="results-content">
             {etymologyData.length > 0 && (

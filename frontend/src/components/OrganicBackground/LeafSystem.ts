@@ -135,6 +135,9 @@ export class LeafSystem {
   }
 
   private startLeafGeneration() {
+    if (this.leafInterval) {
+      clearInterval(this.leafInterval);
+    }
     this.leafInterval = setInterval(() => {
       this.createLeaf();
     }, this.leafSpeed);
@@ -158,11 +161,24 @@ export class LeafSystem {
     this.isRunning = false;
     if (this.leafInterval) {
       clearInterval(this.leafInterval);
+      this.leafInterval = null;
     }
+    
+    // Pause all CSS animations by adding paused class
+    [...this.leaves].forEach(leaf => {
+      leaf.style.animationPlayState = 'paused';
+    });
   }
 
   public resume() {
-    this.isRunning = true;
-    this.startLeafGeneration();
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.startLeafGeneration();
+    }
+    
+    // Resume all CSS animations
+    [...this.leaves].forEach(leaf => {
+      leaf.style.animationPlayState = 'running';
+    });
   }
 }
