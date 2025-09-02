@@ -54,7 +54,7 @@ export default function Home() {
       {!hasSearched ? (
         <div className="initial-state">
           <header className="hero-header">
-            <h1>Etymology DNA</h1>
+            <h1>Sentence DNA</h1>
             <p>Discover the linguistic ancestry of your sentences</p>
           </header>
           
