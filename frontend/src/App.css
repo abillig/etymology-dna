@@ -1,0 +1,405 @@
+.app {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* Initial Google-style centered state */
+.app.initial {
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.hero-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hero-header h1 {
+  color: #2c3e50;
+  font-size: 4rem;
+  font-weight: 300;
+  margin: 0 0 20px 0;
+  letter-spacing: -1px;
+}
+
+.hero-header p {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.hero-search {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.hero-search input {
+  width: 100%;
+  max-width: 600px;
+  padding: 16px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.hero-search input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25,118,210,0.2);
+}
+
+.hero-search button {
+  background: #f8f9fa;
+  color: #3c4043;
+  border: 1px solid #f8f9fa;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 54px;
+  text-align: center;
+}
+
+.hero-search button:hover:not(:disabled) {
+  box-shadow: 0 1px 1px rgba(0,0,0,.1);
+  background-color: #f8f9fa;
+  border: 1px solid #dadce0;
+  color: #202124;
+}
+
+.hero-search button:disabled {
+  background: #f8f9fa;
+  color: #9aa0a6;
+  cursor: not-allowed;
+}
+
+/* Results state with compact header */
+.app.searched {
+  background: #f8f9fa;
+}
+
+.results-state {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.compact-header {
+  background: white;
+  border-bottom: 1px solid #e8eaed;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  color: #4285f4;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.compact-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 600px;
+}
+
+.compact-search input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  transition: all 0.2s ease;
+  height: 40px;
+}
+
+.compact-search input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25,118,210,0.2);
+}
+
+.compact-search button {
+  background: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  white-space: nowrap;
+}
+
+.compact-search button:hover:not(:disabled) {
+  background: #3367d6;
+}
+
+.compact-search button:disabled {
+  background: #9aa0a6;
+  cursor: not-allowed;
+}
+
+.results-content {
+  flex: 1;
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Results styling */
+.sentence-display {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-bottom: 30px;
+}
+
+.sentence-display h3 {
+  color: #2c3e50;
+  margin: 0 0 30px 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.colored-sentence {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.colored-word {
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 4px 6px;
+  border-radius: 6px;
+  margin: 0 2px;
+}
+
+.colored-word:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.dna-report {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.report-content {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+}
+
+.ancestry-bars {
+  flex: 2;
+}
+
+.chromosome-visualization {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chromosome-bar {
+  height: 35px;
+  background: #f1f3f4;
+  border-radius: 17px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ancestry-segment {
+  height: 100%;
+  border-radius: 17px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ancestry-segment:hover {
+  opacity: 0.8;
+  transform: scaleY(1.05);
+}
+
+.ancestry-breakdown {
+  flex: 1;
+  padding-left: 20px;
+  border-left: 1px solid #e9ecef;
+}
+
+.ancestry-breakdown h3 {
+  color: #2c3e50;
+  margin: 0 0 25px 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
+}
+
+.breakdown-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.origin-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.origin-name {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.origin-percentage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.tooltip {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 320px;
+  z-index: 1000;
+}
+
+.tooltip h4 {
+  margin: 0 0 15px 0;
+  color: #ecf0f1;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.tooltip p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.tooltip p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-header h1 {
+    font-size: 3rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .compact-search {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .report-content {
+    flex-direction: column;
+    padding: 20px;
+    gap: 30px;
+  }
+  
+  .ancestry-breakdown {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #e9ecef;
+    padding-top: 30px;
+  }
+  
+  .tooltip {
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    transform: none;
+    max-width: none;
+  }
+  
+  .colored-sentence {
+    font-size: 1.3rem;
+  }
+  
+  .sentence-display {
+    padding: 25px;
+  }
+}
