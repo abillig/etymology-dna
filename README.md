@@ -5,7 +5,6 @@ Analyze the linguistic ancestry of English sentences with a DNA report-style int
 ## Setup
 
 ```bash
-cd nextjs-app
 npm install
 # Add your Anthropic API key to .env.local
 npm run dev
