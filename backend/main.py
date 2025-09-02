@@ -23,6 +23,8 @@ client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 class SentenceRequest(BaseModel):
     sentence: str
 
+CHARACTER_LIMIT = 120
+
 class WordOrigin(BaseModel):
     word: str
     origin: str
@@ -56,6 +58,16 @@ ORIGIN_COLORS = {
 
 @app.post("/analyze", response_model=EtymologyResponse)
 async def analyze_etymology(request: SentenceRequest):
+    # Validate character limit
+    if len(request.sentence.strip()) > CHARACTER_LIMIT:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Input too long. Maximum {CHARACTER_LIMIT} characters allowed."
+        )
+    
+    if not request.sentence.strip():
+        raise HTTPException(status_code=400, detail="Empty input not allowed.")
+    
     try:
         prompt = f"""
         Analyze the etymological origins of each word in this English sentence: "{request.sentence}"

@@ -9,6 +9,8 @@ interface SearchInputProps {
   isCompact?: boolean;
 }
 
+const CHARACTER_LIMIT = 120;
+
 export const SearchInput: React.FC<SearchInputProps> = ({ 
   value, 
   onChange, 
@@ -16,11 +18,26 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   loading, 
   isCompact = false 
 }) => {
+  const handleChange = (newValue: string) => {
+    if (newValue.length <= CHARACTER_LIMIT) {
+      onChange(newValue);
+    }
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && value.trim() && value.length <= CHARACTER_LIMIT) {
       onSubmit();
     }
   };
+
+  const handleSubmit = () => {
+    if (value.trim() && value.length <= CHARACTER_LIMIT) {
+      onSubmit();
+    }
+  };
+
+  const remainingChars = CHARACTER_LIMIT - value.length;
+  const isOverLimit = value.length > CHARACTER_LIMIT;
 
   if (isCompact) {
     return (
@@ -28,13 +45,18 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         <input
           type="text"
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Enter a sentence to analyze..."
         />
-        <button onClick={onSubmit} disabled={loading}>
+        <button onClick={handleSubmit} disabled={loading || !value.trim() || isOverLimit}>
           {loading ? 'Analyzing...' : 'Analyze'}
         </button>
+        <div className="character-counter">
+          <span className={remainingChars < 20 ? 'warning' : ''}>
+            {remainingChars} chars remaining
+          </span>
+        </div>
       </div>
     );
   }
@@ -44,13 +66,18 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       <input
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         onKeyPress={handleKeyPress}
         placeholder="Enter an English sentence to analyze its linguistic DNA..."
       />
-      <button onClick={onSubmit} disabled={loading}>
+      <button onClick={handleSubmit} disabled={loading || !value.trim() || isOverLimit}>
         {loading ? 'Analyzing Linguistic DNA...' : 'Analyze Sentence'}
       </button>
+      <div className="character-counter">
+        <span className={remainingChars < 20 ? 'warning' : ''}>
+          {remainingChars} characters remaining
+        </span>
+      </div>
     </div>
   );
 };

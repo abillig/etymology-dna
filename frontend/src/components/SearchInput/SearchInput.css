@@ -57,6 +57,7 @@
 .compact-search {
   flex: 1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
   max-width: 600px;
@@ -100,6 +101,29 @@
 .compact-search button:disabled {
   background: #9aa0a6;
   cursor: not-allowed;
+}
+
+/* Character counter styling */
+.character-counter {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.character-counter span {
+  font-size: 12px;
+  color: #5f6368;
+  transition: color 0.3s ease;
+}
+
+.character-counter span.warning {
+  color: #ea4335;
+  font-weight: 500;
+}
+
+.compact-search .character-counter {
+  margin-top: 4px;
+  text-align: left;
+  flex-basis: 100%;
 }
 
 @media (max-width: 768px) {
