@@ -1,6 +1,6 @@
-# Etymology Explorer
+# Etymology DNA
 
-Visualize the etymological origins of English sentences through interactive word clouds.
+Analyze the linguistic ancestry of English sentences with a DNA report-style interface. Discover what percentage of your sentence is Germanic, French, Latin, or other language origins.
 
 ## Setup
 
@@ -19,26 +19,31 @@ python main.py
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
-
-## Usage
-
-1. Enter an English sentence in the text area
-2. Click "Analyze Etymology" 
-3. Watch words organize into color-coded origin language clouds
-4. Hover over words to see etymological details
-5. Click "Reassemble" to see the original sentence with color-coded words
 
 ## Features
 
-- **Word Clouds**: Words grouped by etymological origin with color coding
-- **Interactive Tooltips**: Hover for detailed etymological information
-- **Sentence Reassembly**: Original sentence with etymology-based coloring
-- **Multiple Origins**: Germanic, French, Latin, Greek, Arabic, Norse, Celtic, and more
+- **DNA-Style Reports**: Percentage breakdown of linguistic origins with colored bars
+- **Google-Inspired UX**: Centered search that transforms to compact header after analysis
+- **Interactive Analysis**: Color-coded sentences with detailed etymological tooltips
+- **Modern Stack**: FastAPI backend with Vite + React + TypeScript frontend
+
+## Usage
+
+1. Enter an English sentence in the search bar
+2. Click "Analyze Sentence"
+3. View your sentence's linguistic DNA composition
+4. Hover over colored words for detailed etymological information
+
+## Tech Stack
+
+- **Backend**: FastAPI, Anthropic Claude API, Pydantic
+- **Frontend**: Vite, React, TypeScript
+- **Styling**: Custom CSS with Material UI-inspired inputs
 
 ## Requirements
 
 - Python 3.8+
-- Node.js 14+
+- Node.js 16+
 - Anthropic API key
