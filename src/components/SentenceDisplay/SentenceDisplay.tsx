@@ -10,7 +10,8 @@ interface SentenceDisplayProps {
 export const SentenceDisplay: React.FC<SentenceDisplayProps> = ({ words, onWordHover }) => {
   return (
     <div className="sentence-display">
-      <h3>Color-Coded Analysis</h3>
+      <h3>Sentence Analysis</h3>
+      <p>Hover over a word to learn more.</p>
       <div className="colored-sentence">
         {words.map((word, index) => (
           <span
